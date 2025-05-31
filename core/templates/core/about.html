@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Epicurean Delights</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        .bangers-regular {
+            font-family: "Bangers", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .shadow-orange {
+            box-shadow: 0 4px 24px 0 rgba(216, 125, 74, 0.15);
+        }
+        .shadow-orange-hover:hover {
+            box-shadow: 0 8px 32px 0 rgba(216, 125, 74, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-5xl mx-auto flex items-center gap-4 py-6 px-4">
+            <img src="{% static 'Logo.png' %}" alt="Epicurean Delights Logo" class="h-16 w-16 rounded-lg shadow-orange transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+            <h1 class="text-4xl bangers-regular text-[#d87d4a] tracking-wide drop-shadow-lg">Epicurean Delights</h1>
+        </div>
+    </header>
+
+    <!-- About Quote -->
+    <section class="max-w-3xl mx-auto mt-10 px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2 animate-fade-in">We’re changing the way people connect</h2>
+        <p class="text-lg text-gray-400 font-bold mt-4 animate-fade-in-slow">
+            At Epicurean Delights, we believe that food is more than just sustenance—it's an experience that brings people together. Our mission is to create unforgettable dining moments, blending culinary artistry with a warm, welcoming atmosphere. Whether you're here for a family dinner, a romantic evening, or a gathering with friends, our chef-crafted dishes and attentive service promise to make every visit special.
+        </p>
+    </section>
+
+    <!-- Bento Grid Images -->
+    <section class="max-w-5xl mx-auto mt-12 px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in-slow">
+            <div class="row-span-2 col-span-2 bg-white rounded-xl shadow-orange overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://images.unsplash.com/photo-1499186024912-c374ac2e9cb2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Restaurant Interior" class="object-cover w-full h-75">
+            </div>
+            <div class="bg-white rounded-xl shadow-orange overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=80" alt="Fine Dining" class="object-cover w-full h-36">
+            </div>
+            <div class="bg-white rounded-xl shadow-orange overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chef at Work" class="object-cover w-full h-36">
+            </div>
+            <div class="bg-white rounded-xl shadow-orange overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gourmet Dish" class="object-cover w-full h-36">
+            </div>
+            <div class="bg-white rounded-xl shadow-orange overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Restaurant Ambience" class="object-cover w-full h-36">
+            </div>
+        </div>
+    </section>
+
+    <!-- Site Developer Section -->
+    <section class="max-w-3xl mx-auto mt-16 px-4 animate-fade-in">
+        <h3 class="text-xl font-bold text-[#d87d4a] mb-4">Site Developer</h3>
+        <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col md:flex-row items-center gap-6 transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+            <img src="{% static 'prof.jpg' %}" alt="Developer Avatar" class="h-20 w-20 rounded-full border-4 border-[#d87d4a] object-cover shadow-lg transition-transform duration-300 hover:scale-110">
+            <div>
+                <p class="text-lg font-semibold text-gray-900">Biswabhusans Sahoo</p>
+                <p class="text-gray-600">Email: <a href="mailto:biswapvt506@gmail.com" class="text-[#d87d4a] hover:underline">biswapvt506@gmail.com</a></p>
+                <div class="flex gap-4 mt-2">
+                    <a href="https://www.linkedin.com/in/biswabhusan-sahoo" target="_blank" class="text-blue-600 hover:underline hover:text-[#d87d4a] transition-colors">LinkedIn</a>
+                    <a href="https://github.com/Biswa-source45" target="_blank" class="text-gray-800 hover:underline hover:text-[#d87d4a] transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="max-w-3xl mx-auto mt-16 px-4">
+        <div class="bg-[#fff7f3] border border-[#ffd6c2] rounded-xl shadow-orange p-8 text-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+            <svg class="mx-auto mb-4 w-10 h-10 text-[#d87d4a]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+            <p class="text-lg italic text-gray-700 mb-2">
+                "Absolutely loved the food and the ambiance! The staff was friendly and the service was top-notch. Will definitely come back again!"
+            </p>
+            <span class="block font-semibold text-gray-900 mt-2">— Priya Sharma, Food Blogger</span>
+        </div>
+
+    </section>
+
+    <!-- Location Section -->
+    <section class="max-w-3xl mx-auto mt-16 px-4 animate-fade-in">
+        <h3 class="text-xl font-bold text-[#d87d4a] mb-4">Location</h3>
+        <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col md:flex-row items-center gap-6 transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+            <svg class="w-10 h-10 text-[#d87d4a] mb-4 md:mb-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 8c-4.418 0-8-3.582-8-8 0-4.418 3.582-8 8-8s8 3.582 8 8c0 4.418-3.582 8-8 8z"/>
+            </svg>
+            <div>
+                <p class="text-lg font-semibold text-gray-900 mb-2">Esplanade One Mall, Food Court Terrace, Bhubaneswar, Odisha</p>
+                <p class="text-gray-700">
+                    Located at the Food Court Terrace of Esplanade One Mall in Rasulgarh, Bhubaneswar, Epicurean Delights offers a vibrant dining experience in the heart of the city. Enjoy convenient access, ample parking, and a lively atmosphere—perfect for relaxing meals with family and friends, away from the city's hustle.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="mt-16 py-6 bg-white border-t">
+        <p class="text-center text-gray-500 text-base">&copy; 2025 Epicurean Delights. All rights reserved.</p>
+    </footer>
+    <!--- menu and home button --->
+    <div class="fixed bottom-4 right-4 flex gap-4">
+        <a href="/menu" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105">Menu</a>
+        <a href="/" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105">Home</a>
+    </div>
+
+    <!-- Animations -->
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out;
+        }
+        .animate-fade-in-slow {
+            animation: fade-in 1.5s ease-out;
+        }
+    </style>
+</body>
+</html>

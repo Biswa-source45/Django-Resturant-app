@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Order Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #f9fafb;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 520px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .header {
+            background: #d87d4a;
+            color: #fff;
+            padding: 24px 32px 16px 32px;
+            display: flex;
+            align-items: center;
+        }
+        .header img {
+            height: 48px;
+            width: 48px;
+            border-radius: 8px;
+            margin-right: 16px;
+            background: #fff;
+            object-fit: cover;
+        }
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .content {
+            padding: 32px;
+        }
+        .order-info {
+            margin-bottom: 24px;
+        }
+        .order-info h2 {
+            color: #d87d4a;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .order-details {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+        }
+        .order-details img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 16px;
+            border: 1px solid #eee;
+        }
+        .order-details .item-info {
+            flex: 1;
+        }
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #222;
+        }
+        .item-desc {
+            color: #555;
+            font-size: 0.97rem;
+            margin: 4px 0 8px 0;
+        }
+        .item-price {
+            color: #d87d4a;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .meta {
+            font-size: 0.97rem;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .meta strong {
+            color: #d87d4a;
+        }
+        .footer {
+            background: #f5f5f5;
+            padding: 20px 32px;
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+        }
+        .delivery {
+            margin-top: 18px;
+            padding: 16px;
+            background: #fff7f3;
+            border-radius: 8px;
+            border: 1px solid #ffd6c2;
+        }
+        .delivery-title {
+            color: #d87d4a;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .delivery p {
+            margin: 2px 0;
+            color: #444;
+        }
+        .timer {
+            margin-top: 18px;
+            font-size: 1.1rem;
+            color: #d87d4a;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .container, .content, .footer, .header {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+            .content {
+                padding: 18px !important;
+            }
+            .footer {
+                padding: 12px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ STATIC_URL }}Logo.png" alt="Restaurant Logo">
+            <div class="header-title">Order Invoice</div>
+        </div>
+        <div class="content">
+            <div class="order-info">
+                <h2>Thank you for your order, {{ order.user.username }}!</h2>
+                <div class="meta">
+                    <strong>Order #:</strong> {{ order.order_number }}<br>
+                    <strong>Order Type:</strong> {{ order.get_order_type_display }}<br>
+                    <strong>Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}
+                </div>
+            </div>
+            <div class="order-details">
+                <img src="{{ menu_item.product_image.url }}" alt="{{ menu_item.name }}">
+                <div class="item-info">
+                    <div class="item-title">{{ menu_item.name }}</div>
+                    <div class="item-desc">{{ menu_item.description }}</div>
+                    <div class="item-price">₹{{ menu_item.price }}</div>
+                    <div class="meta">
+                        <strong>Rating:</strong> {{ menu_item.rating|default:"N/A" }}
+                    </div>
+                </div>
+            </div>
+            <div class="delivery">
+                <div class="delivery-title">Delivery Details</div>
+                <p><strong>Name:</strong> {{ order.user.username }}</p>
+                <p><strong>Email:</strong> {{ order.user.email }}</p>
+                <p><strong>Address:</strong> {{ user_data.address }}</p>
+                <p><strong>Contact:</strong> {{ user_data.phone }}</p>
+            </div>
+            <div class="timer">
+                Estimated Delivery Time: 30:00 minutes
+            </div>
+        </div>
+        <div class="footer">
+            &copy; {{ now|date:"Y" }}.Epicurean Delights All rights reserved.<br>
+            <span style="color:#d87d4a;">We hope you enjoy your meal!</span>
+        </div>
+    </div>
+</body>
+</html>

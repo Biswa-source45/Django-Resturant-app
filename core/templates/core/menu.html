@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food menus</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        .bangers-regular {
+            font-family: "Bangers", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+            <div class="flex items-center justify-center sm:items-stretch sm:justify-start">
+              <div class="flex shrink-0 items-center">
+                <h2 class="text-2xl font-bold  sm:text-3xl md:text-4xl bangers-regular tracking-wide text-[#d87d4a]">Epicurean Delights</h2>
+              </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View cart</span>
+                <!-- Shopping cart icon -->
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386a1 1 0 0 1 .98.804l.383 1.915m0 0L6.21 9.607A2 2 0 0 0 8.157 11h7.686a2 2 0 0 0 1.947-1.393l1.211-3.888a1 1 0 0 0-.947-1.319H4.999m.999 0L4.999 3m2.25 16.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm9 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                </svg>
+            </button>
+            
+            <!-- User Profile Icon -->
+            <button id="userProfileBtn" type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden ml-4">
+                <span class="sr-only">Open user profile</span>
+                <!-- User icon -->
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                </svg>
+            </button>
+
+            <!-- User Profile Slider -->
+            <div id="userProfileSlider" class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+                <div class="flex items-center justify-between p-4 border-b">
+                    <h3 class="text-lg font-semibold">User Profile</h3>
+                    <button id="closeUserProfile" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6" id="userProfileContent">
+                    {% if user_data %}
+                    <div class="flex flex-col items-center">
+                        {% if user_data.profile_picture %}
+                            <img src="{{ user_data.profile_picture.url }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4 object-cover">
+                        {% else %}
+                            <div class="w-20 h-20 rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                                </svg>
+                            </div>
+                        {% endif %}
+                        <p class="font-bold text-lg mb-1" id="profileUsername">{{ request.user.username }}</p>
+                        <p class="text-gray-600 mb-1" id="profileEmail">{{ request.user.email }}</p>
+                        <p class="text-gray-600 mb-1" id="profileAddress">{{ user_data.address }}</p>
+                        <p class="text-gray-600 mb-1" id="profilePhone">{{ user_data.phone }}</p>
+
+                            <a href="{% url 'logout' %}" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition text-center">
+                                Logout
+                            </a>
+                        
+                    </div>
+                    {% else %}
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                            </svg>
+                        </div>
+                        <p class="font-bold text-lg mb-1">Guest</p>
+                        <p class="text-gray-600 mb-1">Not logged in</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <script>
+                const userProfileBtn = document.getElementById('userProfileBtn');
+                const userProfileSlider = document.getElementById('userProfileSlider');
+                const closeUserProfile = document.getElementById('closeUserProfile');
+            
+                userProfileBtn.addEventListener('click', () => {
+                    userProfileSlider.classList.remove('translate-x-full');
+                    userProfileSlider.classList.add('translate-x-0');
+                });
+            
+                closeUserProfile.addEventListener('click', () => {
+                    userProfileSlider.classList.remove('translate-x-0');
+                    userProfileSlider.classList.add('translate-x-full');
+                });
+            </script>
+              <!-- Profile dropdown -->
+              
+            </div>
+          </div>
+        </div>
+        </div>
+      </nav>
+
+    <div class="max-w-7xl mx-auto py-10 px-4 grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <!-- Example product card -->
+
+        {% for menu in menu_items %}
+            
+        <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+            <img src="{{ menu.product_image.url }}" alt="Food Item" class="h-48 w-full object-cover">
+            <div class="p-4 flex-1 flex flex-col">
+                <h3 class="text-lg font-semibold mb-2"> {{menu.name}} </h3>
+                <div class="flex items-center mb-2">
+                    <span class="text-[#d87d4a] font-bold text-xl mr-2">
+                        ₹{{menu.price}}</span>
+                    <span class="flex items-center text-yellow-400">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.9 4.8,17.8 9.9,14.8 15,17.8 13.8,11.9 18.2,7.6 12.2,6.6 "/></svg>
+                        <span class="ml-1 text-gray-600">
+                            {{menu.rating}}
+                        </span>
+                    </span>
+                </div>
+                <button></button><a href="{% url 'menu_detail' menu.id %}" class="mt-auto bg-[#d87d4a] hover:bg-[#b35c2a] text-white font-bold py-2 px-4 rounded transition text-center">View</a></button>
+            </div>
+        </div>
+        <!-- Repeat product cards as needed -->
+
+        {% endfor %}
+        
+    </div>
+      
+</body>
+</html>

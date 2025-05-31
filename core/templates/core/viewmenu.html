@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ menu_item.name }} | Epicurean Delights</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <div class="max-w-3xl mx-auto mt-10 bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
+        <div class="md:w-1/2 flex items-center justify-center bg-gray-100">
+            <img src="{{ menu_item.product_image.url }}" alt="{{ menu_item.name }}" class="object-cover w-full h-96 md:h-full">
+        </div>
+        <div class="p-8 md:w-1/2 flex flex-col">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ menu_item.name }}</h1>
+            <p class="text-gray-700 mb-4">{{ menu_item.description }}</p>
+            <div class="flex items-center mb-4">
+                <span class="text-2xl font-bold text-[#d87d4a] mr-4">
+                    ₹{{ menu_item.price }}</span>
+                <span class="flex items-center text-yellow-400">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.9 4.8,17.8 9.9,14.8 15,17.8 13.8,11.9 18.2,7.6 12.2,6.6 "/></svg>
+                    <span class="ml-2 text-gray-600 text-lg">{{ menu_item.rating }}</span>
+                </span>
+            </div>
+            <button id="makeOrderBtn" class="mt-auto bg-[#d87d4a] hover:bg-[#b35c2a] text-white font-bold py-3 px-6 rounded transition text-center text-lg w-full">Make an Order</button>
+        </div>
+    </div>
+    <div class="mt-8 text-center">
+        <a href="{% url 'menu' %}" class="text-[#d87d4a] hover:underline text-lg">&larr; Back to Menu</a>
+    </div>
+
+    <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+          <h2 class="text-xl font-bold mb-4 text-[#d87d4a]">Confirm Your Order</h2>
+          <p class="mb-6">Are you sure you want to order <span class="font-semibold">{{ menu_item.name }}</span>?</p>
+          <div class="flex justify-end gap-4">
+            <button id="cancelOrderBtn" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">Cancel</button>
+            <form id="orderForm" method="post" action="{% url 'order_confirm' menu_item.id %}">
+              {% csrf_token %}
+              <button type="submit" class="px-4 py-2 rounded bg-[#d87d4a] text-white hover:bg-[#b35c2a]">Confirm Order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+        const makeOrderBtn = document.getElementById('makeOrderBtn');
+        const orderModal = document.getElementById('orderModal');
+        const cancelOrderBtn = document.getElementById('cancelOrderBtn');
+      
+        if (makeOrderBtn) {
+          makeOrderBtn.addEventListener('click', () => {
+            orderModal.classList.remove('hidden');
+          });
+        }
+        if (cancelOrderBtn) {
+          cancelOrderBtn.addEventListener('click', () => {
+            orderModal.classList.add('hidden');
+          });
+        }
+      </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-white">
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm ">
+      <img class="mx-auto h-35 w-auto" src="{% static 'Logo.png' %}" alt="Your Company">
+      <h2 class="mt-5 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Create your account</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% if error %}
+            <div class="mb-4 text-red-600 text-center font-semibold">{{ error }}</div>
+          {% endif %}
+          <div>
+            <label for="username" class="block text-sm/6 font-medium text-gray-900">Username</label>
+            <div class="mt-2">
+              <input type="text" name="username" id="username" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#d87d4a] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#d87d4a] sm:text-sm/6">
+            </div>
+          </div>
+        <div>
+          <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+          <div class="mt-2">
+            <input type="email" name="email" id="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#d87d4a] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#d87d4a] sm:text-sm/6">
+          </div>
+        </div>
+        <div>
+          <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+          <div class="mt-2">
+            <input type="password" name="password" id="password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#d87d4a] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#d87d4a] sm:text-sm/6">
+          </div>
+        </div>
+        <div>
+          <label for="address" class="block text-sm/6 font-medium text-gray-900">Address</label>
+          <div class="mt-2">
+            <input type="text" name="address" id="address" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#d87d4a] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#d87d4a] sm:text-sm/6">
+          </div>
+        </div>
+        <div>
+          <label for="phone" class="block text-sm/6 font-medium text-gray-900">Phone</label>
+          <div class="mt-2">
+            <input type="text" name="phone" id="phone" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#d87d4a] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#d87d4a] sm:text-sm/6">
+          </div>
+        </div>
+        <div>
+          <label for="profile_picture" class="block text-sm/6 font-medium text-gray-900">Profile Picture</label>
+          <div class="mt-2">
+            <input type="file" name="profile_picture" id="profile_picture" class="block w-full text-base text-gray-900">
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-[#d87d4a] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-[#b35c2a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d87d4a]">Register</button>
+        </div>
+      </form>
+      <p class="mt-10 text-center text-sm/6 text-gray-500">
+        Already have an account?
+        <a href="{% url 'login' %}" class="font-semibold text-[#d87d4a] hover:text-[#b35c2a]">Login</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

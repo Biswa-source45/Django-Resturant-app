@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Chefs | Epicurean Delights</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        .bangers-regular { font-family: "Bangers", system-ui; font-weight: 400; }
+        .shadow-orange { box-shadow: 0 4px 24px 0 rgba(216, 125, 74, 0.15); }
+        .shadow-orange-hover:hover { box-shadow: 0 8px 32px 0 rgba(216, 125, 74, 0.25); }
+        .marquee {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background: #fff7f3;
+            border-radius: 1rem;
+            /* border: 1px solid #ffd6c2; */
+            margin-top: 2rem;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+            gap: 2rem;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .testimonial-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px 0 rgba(216, 125, 74, 0.25);
+        }
+        .testimonial-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-5xl mx-auto flex items-center gap-4 py-6 px-4">
+            <img src="{% static 'Logo.png' %}" alt="Epicurean Delights Logo" class="h-16 w-16 rounded-lg shadow-orange">
+            <h1 class="text-4xl bangers-regular text-[#d87d4a] tracking-wide">Epicurean Delights</h1>
+        </div>
+    </header>
+
+    <!-- Chefs Section -->
+    <section class="max-w-5xl mx-auto mt-10 px-4">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Our Chefs</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <!-- Chef 1 -->
+            <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Chef Rajesh Kumar" class="w-28 h-28 rounded-full object-cover mb-4 border-4 border-[#d87d4a]">
+                <h3 class="text-xl font-bold text-gray-900">Rajesh Kumar</h3>
+                <p class="text-[#d87d4a] font-semibold mb-1">Master of Indian Cuisine</p>
+                <p class="text-gray-600 text-sm mb-2">Experience: 18 years</p>
+                <p class="text-gray-700 text-center">Chef Rajesh brings the authentic flavors of India to your plate, blending tradition with innovation for a truly unforgettable dining experience.</p>
+                
+            </div>
+            <!-- Chef 2 -->
+            <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Chef Maria Lopez" class="w-28 h-28 rounded-full object-cover mb-4 border-4 border-[#d87d4a]">
+                <h3 class="text-xl font-bold text-gray-900">Maria Lopez</h3>
+                <p class="text-[#d87d4a] font-semibold mb-1">Pastry & Dessert Expert</p>
+                <p class="text-gray-600 text-sm mb-2">Experience: 12 years</p>
+                <p class="text-gray-700 text-center">Maria crafts exquisite desserts and pastries, ensuring every meal ends on a sweet note. Her creativity delights guests of all ages.</p>
+            </div>
+            <!-- Chef 3 -->
+            <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col items-center transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Chef Luca Romano" class="w-28 h-28 rounded-full object-cover mb-4 border-4 border-[#d87d4a]">
+                <h3 class="text-xl font-bold text-gray-900">Luca Romano</h3>
+                <p class="text-[#d87d4a] font-semibold mb-1">Italian Cuisine Maestro</p>
+                <p class="text-gray-600 text-sm mb-2">Experience: 15 years</p>
+                <p class="text-gray-700 text-center">Luca’s passion for Italian food shines through in every dish, from hand-tossed pizzas to rich, flavorful pastas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Feedback on Chefs -->
+    <section class="max-w-5xl mx-auto mt-16 px-4">
+        <h3 class="text-2xl font-bold text-center text-[#d87d4a] mb-6">Customer Feedback on Our Chefs</h3>
+        <div class="marquee">
+            <div class="marquee-track" id="marquee-track">
+                <!-- 5 Unique Testimonials, repeated for seamless loop -->
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Rajesh's biryani is the best I've ever tasted. The flavors are just perfect!"</p>
+                    <span class="font-semibold text-gray-900">— Anjali Mehta</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Maria's desserts are heavenly! My kids loved the chocolate lava cake."</p>
+                    <span class="font-semibold text-gray-900">— Rahul Verma</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Luca's pasta is authentic and delicious. Reminds me of my trip to Rome!"</p>
+                    <span class="font-semibold text-gray-900">— Priya Sharma</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"The chefs here are so friendly and talented. Every meal is a treat!"</p>
+                    <span class="font-semibold text-gray-900">— Sandeep Kaur</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Maria's attention to detail is unmatched. Every dessert is a masterpiece!"</p>
+                    <span class="font-semibold text-gray-900">— Kavita Joshi</span>
+                </div>
+                <!-- Repeat the testimonials for seamless infinite loop -->
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Rajesh's biryani is the best I've ever tasted. The flavors are just perfect!"</p>
+                    <span class="font-semibold text-gray-900">— Anjali Mehta</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Maria's desserts are heavenly! My kids loved the chocolate lava cake."</p>
+                    <span class="font-semibold text-gray-900">— Rahul Verma</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Luca's pasta is authentic and delicious. Reminds me of my trip to Rome!"</p>
+                    <span class="font-semibold text-gray-900">— Priya Sharma</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"The chefs here are so friendly and talented. Every meal is a treat!"</p>
+                    <span class="font-semibold text-gray-900">— Sandeep Kaur</span>
+                </div>
+                <div class="testimonial-card bg-white rounded-xl shadow-orange p-6 mx-2 min-w-[320px] flex flex-col items-center">
+                    <svg class="w-8 h-8 text-[#d87d4a] mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2 2 2h4a2 2 0 012 2v12a2 2 0 01-2 2z"></path></svg>
+                    <p class="italic text-gray-700 text-center mb-2">"Chef Maria's attention to detail is unmatched. Every dessert is a masterpiece!"</p>
+                    <span class="font-semibold text-gray-900">— Kavita Joshi</span>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    
+
+    <!-- Footer -->
+    <footer class="mt-16 py-6 bg-white border-t">
+        <p class="text-center text-gray-500 text-base">&copy; 2025 Epicurean Delights. All rights reserved.</p>
+    </footer>
+    <div class="fixed bottom-4 right-4 flex gap-4 z-50 w-full max-w-xs sm:max-w-none sm:w-auto" style="pointer-events:auto;">
+        <a href="/menu" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105 flex-1 text-center">Menu</a>
+        <a href="/" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105 flex-1 text-center">Home</a>
+    </div>
+</body>
+</html>

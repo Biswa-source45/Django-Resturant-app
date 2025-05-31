@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex items-center p-6 border-b">
+            <img src="{% static 'Logo.png' %}" alt="Logo" class="h-16 w-16 rounded mr-4">
+            <div>
+                <h2 class="text-2xl font-bold text-[#d87d4a]">Order Invoice</h2>
+                <p class="text-gray-600">Order #: <span class="font-semibold">{{ order.order_number }}</span></p>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <img src="{{ menu_item.product_image.url }}" alt="{{ menu_item.name }}" class="w-40 h-40 object-cover rounded">
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold mb-2">{{ menu_item.name }}</h3>
+                    <p class="text-gray-700 mb-2">{{ menu_item.description }}</p>
+                    <div class="flex items-center mb-2">
+                        <span class="text-[#d87d4a] font-bold text-xl mr-2">₹{{ menu_item.price }}</span>
+                        <span class="flex items-center text-yellow-400">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><polygon points="9.9,1.1 7.6,6.6 1.6,7.6 6,11.9 4.8,17.8 9.9,14.8 15,17.8 13.8,11.9 18.2,7.6 12.2,6.6 "/></svg>
+                            <span class="ml-1 text-gray-600">{{ menu_item.rating }}</span>
+                        </span>
+                    </div>
+                    <div class="mt-2">
+                        <span class="font-semibold">Order Type:</span>
+                        <span class="ml-2">{{ order.get_order_type_display }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 border-t pt-4">
+                <h4 class="font-bold text-lg mb-2">Delivery Details</h4>
+                <p><span class="font-semibold">Name:</span> {{ order.user.username }}</p>
+                <p><span class="font-semibold">Email:</span> {{ order.user.email }}</p>
+                <p><span class="font-semibold">Address:</span> {{ user_data.address }}</p>
+                <p><span class="font-semibold">Contact:</span> {{ user_data.phone }}</p>
+            </div>
+            <div class="mt-6 flex flex-col items-center">
+                <span class="font-semibold text-[#d87d4a] text-lg">Estimated Delivery Time:</span>
+                <span id="timer" class="text-2xl font-bold text-gray-900 mt-2">30:00</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 30 minute countdown timer
+        let time = 30 * 60;
+        const timerEl = document.getElementById('timer');
+        setInterval(() => {
+            const minutes = Math.floor(time / 60);
+            const seconds = time % 60;
+            timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            if (time > 0) time--;
+        }, 1000);
+    </script>
+</body>
+</html>

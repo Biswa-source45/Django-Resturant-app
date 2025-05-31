@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History | Epicurean Delights</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        .bangers-regular { font-family: "Bangers", system-ui; font-weight: 400; }
+        .shadow-orange { box-shadow: 0 4px 24px 0 rgba(216, 125, 74, 0.15); }
+        .shadow-orange-hover:hover { box-shadow: 0 8px 32px 0 rgba(216, 125, 74, 0.25); }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white shadow relative">
+        <div class="max-w-5xl mx-auto flex items-center gap-4 py-6 px-4">
+            <img src="{% static 'Logo.png' %}" alt="Epicurean Delights Logo" class="h-12 w-12 rounded-lg shadow-orange">
+            <h1 class="text-3xl bangers-regular text-[#d87d4a] tracking-wide">Order History</h1>
+            <!-- User Profile Icon and Sidebar -->
+            <div class="absolute inset-y-0 right-0 flex items-center pr-6">
+                <!-- User Profile Icon -->
+                <button id="userProfileBtn" type="button" class="relative rounded-full bg-[#d87d4a] p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden ml-4">
+                    <span class="sr-only">Open user profile</span>
+                    <!-- User icon -->
+                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                    </svg>
+                </button>
+                <!-- User Profile Slider -->
+                <div id="userProfileSlider" class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+                    <div class="flex items-center justify-between p-4 border-b">
+                        <h3 class="text-lg font-semibold">User Profile</h3>
+                        <button id="closeUserProfile" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-6" id="userProfileContent">
+                        {% if user.userdata %}
+                        <div class="flex flex-col items-center">
+                            {% if user.userdata.profile_picture %}
+                                <img src="{{ user.userdata.profile_picture.url }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4 object-cover">
+                            {% else %}
+                                <div class="w-20 h-20 rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                                    </svg>
+                                </div>
+                            {% endif %}
+                            <p class="font-bold text-lg mb-1" id="profileUsername">{{ user.username }}</p>
+                            <p class="text-gray-600 mb-1" id="profileEmail">{{ user.email }}</p>
+                            <p class="text-gray-600 mb-1" id="profileAddress">{{ user.userdata.address }}</p>
+                            <p class="text-gray-600 mb-1" id="profilePhone">{{ user.userdata.phone }}</p>
+                            <a href="{% url 'logout' %}" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition text-center">
+                                Logout
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="flex flex-col items-center">
+                            <div class="w-20 h-20 rounded-full bg-gray-200 mb-4 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a8.25 8.25 0 1115 0v.75a.75.75 0 01-.75.75h-13.5a.75.75 0 01-.75-.75v-.75z" />
+                                </svg>
+                            </div>
+                            <p class="font-bold text-lg mb-1">Guest</p>
+                            <p class="text-gray-600 mb-1">Not logged in</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto mt-10 px-4 flex-1">
+        {% if orders %}
+            <div class="grid gap-6">
+                {% for order in orders %}
+                <div class="bg-white rounded-xl shadow-orange p-6 flex flex-col md:flex-row items-center gap-6 transition-transform duration-300 hover:scale-105 shadow-orange-hover">
+                    <img src="{{ order.menu_item.product_image.url }}" alt="{{ order.menu_item.name }}" class="h-24 w-24 rounded-lg object-cover border-2 border-[#d87d4a] shadow">
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">{{ order.menu_item.name }}</h2>
+                                <p class="text-gray-600 text-sm mb-1">{{ order.menu_item.description|truncatechars:60 }}</p>
+                                <span class="text-[#d87d4a] font-bold text-lg">₹{{ order.menu_item.price }}</span>
+                                <span class="ml-2 text-yellow-400 font-semibold">
+                                    ★ {{ order.menu_item.rating|default:"N/A" }}
+                                </span>
+                            </div>
+                            <div class="mt-2 md:mt-0 md:text-right">
+                                <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold mb-1">
+                                    Order #: {{ order.order_number }}
+                                </span>
+                                <br>
+                                <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                    {{ order.get_order_type_display }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-4 mt-4">
+                            <span class="text-gray-500 text-sm">Ordered: {{ order.created_at|date:"M d, Y H:i" }}</span>
+                            {% with now|date:"U"|add:"-1800"|floatformat:0 as cutoff %}
+                                {% if order.created_at|date:"U"|floatformat:0 < cutoff %}
+                                    <span class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold animate-fade-in">Served</span>
+                                {% else %}
+                                    <span class="inline-block bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold animate-fade-in timer" data-created="{{ order.created_at|date:"U" }}">Time left: <span class="timer-value">--:--</span></span>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center mt-20">
+                <h2 class="text-2xl font-bold text-gray-700 mb-4">No orders yet!</h2>
+                <a href="{% url 'menu' %}" class="inline-block bg-[#d87d4a] text-white px-6 py-2 rounded-full shadow-orange transition-transform duration-300 hover:scale-105 shadow-orange-hover">Order Now</a>
+            </div>
+        {% endif %}
+        <div class="fixed bottom-4 right-4 flex gap-4">
+            <a href="/menu" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105">Menu</a>
+            <a href="/" class="bg-[#d87d4a] text-white rounded-full p-3 shadow-lg transition-transform duration-300 hover:scale-105">Home</a>
+        </div>
+    </main>
+    <footer class="mt-16 py-6 bg-white border-t">
+        <p class="text-center text-gray-500 text-base">&copy; 2025 Epicurean Delights. All rights reserved.</p>
+    </footer>
+    <script>
+        // Timer for ongoing orders (30 min = 1800 seconds)
+        function updateTimers() {
+            const now = Math.floor(Date.now() / 1000);
+            document.querySelectorAll('.timer').forEach(function(timerEl) {
+                const created = parseInt(timerEl.getAttribute('data-created'));
+                const elapsed = now - created;
+                const remaining = 1800 - elapsed;
+                const timerValue = timerEl.querySelector('.timer-value');
+                if (remaining > 0) {
+                    const min = Math.floor(remaining / 60);
+                    const sec = remaining % 60;
+                    timerValue.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+                } else {
+                    timerValue.textContent = "00:00";
+                    timerEl.classList.remove('bg-yellow-100', 'text-yellow-700');
+                    timerEl.classList.add('bg-green-100', 'text-green-700');
+                    timerEl.textContent = "Served";
+                }
+            });
+        }
+        setInterval(updateTimers, 1000);
+        updateTimers();
+
+        // User Profile Sidebar Toggle
+        const userProfileBtn = document.getElementById('userProfileBtn');
+        const userProfileSlider = document.getElementById('userProfileSlider');
+        const closeUserProfile = document.getElementById('closeUserProfile');
+
+        userProfileBtn.addEventListener('click', () => {
+            userProfileSlider.classList.remove('translate-x-full');
+            userProfileSlider.classList.add('translate-x-0');
+        });
+
+        closeUserProfile.addEventListener('click', () => {
+            userProfileSlider.classList.remove('translate-x-0');
+            userProfileSlider.classList.add('translate-x-full');
+        });
+    </script>
+</body>
+</html>
